@@ -1,6 +1,6 @@
 ﻿# Eg. User name="admin", Password="admin" for this code sample.
 $user = "admin"
-$pass = "admin"
+$pass = "w$%MUvEm0c6C"
 
 # Build auth header
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, $pass)))
@@ -24,4 +24,7 @@ $body = "{`"requested_for`":`"System Administrator`",`"short_description`":`"Cha
 $response = Invoke-RestMethod -Headers $headers -Method $method -Uri $uri -Body $body
 
 # Print response
-$response.RawContent
+$response.result | 
+    Select-Object number, requested_for, requested_by, region, priority, assignment_group, SCTASK
+
+# REQ0010002

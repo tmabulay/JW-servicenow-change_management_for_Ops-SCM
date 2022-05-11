@@ -30,4 +30,4 @@ $body = "{`"requested_by`":`"Teodoro Gaboury`",`"cab_required`":`"true`",`"cab_d
 $response = Invoke-RestMethod -Headers $headers -Method $method -Uri $uri -Body $body
 
 # Print response
-$response.result | select number, sys_id, sys_updated_by
+$response.result | Select-Object number, sys_id, sys_updated_by

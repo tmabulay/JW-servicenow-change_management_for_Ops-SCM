@@ -25,6 +25,12 @@ $response = Invoke-RestMethod -Headers $headers -Method $method -Uri $uri -Body 
 
 # Print response
 $response.result | 
-    Select-Object number, requested_for, requested_by, region, priority, assignment_group, SCTASK
+    Select-Object number,  sys_id, requested_for, region, business_service, site_location, contact_type, state, priority, assignment_group, assigned_to, SCTASK, description, short_description
 
 # REQ0010002
+
+
+Write-Host $(git diff)
+# $commit = "$($response.result.SCTASK) - $($response.result.short_description)"
+$commit = Read-Host -Prompt 'git commit -a -m '
+git commit -a -m "$($commit)"

@@ -25,6 +25,8 @@ $report = foreach ($project in $projects) {
             )
     }
 }
-
-$report | Group-Object -Property Project_Name -NoElement | Sort-Object -Property Count -Descending | Export-Csv -Path ".\$((Get-Date).Date.Millisecond)_dev_azure_JW_report.csv" -NoTypeInformation
-$report | Select-Object Project_Name, Project_Description, Reposoty_Name, Reposoty_size | Export-Csv -Path ".\$((Get-Date).Date.Millisecond)_dev_azure_JW_all.csv" -NoTypeInformation
+$timeMilliSec = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+$csv_report_sum = $report | Group-Object -Property Project_Name -NoElement | Sort-Object -Property Count -Descending 
+$csv_report_all = $report | Select-Object Project_Name, Project_Description, Reposoty_Name, Reposoty_size 
+$csv_report_sum | Export-Csv -Path ".\reports\$($timeMilliSec)_dev_azure_JW_report.csv" -NoTypeInformation
+$csv_report_all| Export-Csv -Path ".\reports\$($timeMilliSec)_dev_azure_JW_all.csv" -NoTypeInformation
